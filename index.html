@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Logo Concept - Pilates Brand</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;1,400&family=Plus+Jakarta+Sans:wght@500;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* Paleta de colores oficial */
+        :root {
+            --color-ivory: #fbfaf7;
+            --color-taupe: #b3a594;
+            --color-rosa-pastel: #f7d6d8;
+            --color-peach-blush: #e2a4a7;
+            --color-chocolate: #362017;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--color-ivory);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        /* Contenedor del Logo Principal */
+        .brand-logo-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1.5rem;
+            padding: 3rem;
+            background: var(--color-ivory);
+            transition: transform 0.3s ease;
+        }
+
+        /* --- El Isotipo Abstracto ("Indirecto") --- */
+        .abstract-icon {
+            position: relative;
+            width: 120px;
+            height: 120px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Forma orgánica 1 (Fondo - Rosa Suave) */
+        .shape-back {
+            position: absolute;
+            width: 90px;
+            height: 95px;
+            background-color: var(--color-rosa-pastel);
+            /* Curvas asimétricas inspiradas en tus referencias */
+            border-radius: 60% 40% 70% 30% / 50% 60% 40% 50%;
+            transform: rotate(-15deg);
+            opacity: 0.85;
+            animation: floatBack 6s ease-in-out infinite alternate;
+        }
+
+        /* Forma orgánica 2 (Frente - Peach Blush que cruza) */
+        .shape-front {
+            position: absolute;
+            width: 75px;
+            height: 85px;
+            background-color: var(--color-peach-blush);
+            border-radius: 40% 60% 35% 65% / 60% 40% 60% 40%;
+            transform: rotate(20deg) translate(15px, 10px);
+            mix-blend-mode: multiply; /* Logra un tercer color sofisticado donde se cruzan */
+            animation: floatFront 6s ease-in-out infinite alternate;
+        }
+
+        /* El núcleo o punto de equilibrio (Detalle minimalista en Chocolate) */
+        .shape-core {
+            position: absolute;
+            width: 14px;
+            height: 14px;
+            background-color: var(--color-chocolate);
+            border-radius: 50%;
+            transform: translate(-10px, -5px);
+            box-shadow: 0 0 0 6px var(--color-ivory); /* Efecto de espacio en blanco alrededor */
+            z-index: 10;
+        }
+
+        /* --- Tipografía Elegante --- */
+        .brand-text {
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            gap: 0.3rem;
+        }
+
+        /* Título Principal (Serif, itálica sutil, Chocolate) */
+        .brand-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.2rem;
+            font-weight: 600;
+            color: var(--color-chocolate);
+            letter-spacing: -0.5px;
+            line-height: 1;
+        }
+
+        .brand-title span {
+            font-style: italic;
+            font-weight: 400;
+            color: var(--color-peach-blush);
+        }
+
+        /* Subtítulo o Tagline (Palo Seco, limpio, espaciado) */
+        .brand-tagline {
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            color: var(--color-taupe);
+            letter-spacing: 4px;
+            margin-top: 0.2rem;
+        }
+
+        /* Pequeñas animaciones orgánicas para simular fluidez (Pilates) */
+        @keyframes floatBack {
+            0% { border-radius: 60% 40% 70% 30% / 50% 60% 40% 50%; transform: rotate(-15deg) translateY(0px); }
+            100% { border-radius: 45% 55% 50% 50% / 60% 45% 55% 40%; transform: rotate(-10deg) translateY(-4px); }
+        }
+
+        @keyframes floatFront {
+            0% { border-radius: 40% 60% 35% 65% / 60% 40% 60% 40%; transform: rotate(20deg) translate(15px, 10px); }
+            100% { border-radius: 55% 45% 60% 40% / 40% 55% 45% 55%; transform: rotate(25deg) translate(12px, 6px); }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="brand-logo-container">
+        
+        <div class="abstract-icon">
+            <div class="shape-back"></div>
+            <div class="shape-front"></div>
+            <div class="shape-core"></div>
+        </div>
+
+        <div class="brand-text">
+            <h1 class="brand-title">balance <span>studio</span></h1>
+            <p class="brand-tagline">pilates & move</p>
+        </div>
+
+    </div>
+
+</body>
+</html>
