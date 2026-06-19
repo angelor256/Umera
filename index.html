@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Umera — The Divine Feminine</title>
+    <title>Umera — Hecho para fluir</title>
     
     <!-- Fuentes de Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -33,6 +33,7 @@
             min-height: 100vh;
             display: flex;
             flex-direction: column;
+            overflow-x: hidden;
         }
 
         /* --- HEADER NAVIGATION --- */
@@ -41,11 +42,17 @@
             justify-content: space-between;
             align-items: center;
             padding: 1.5rem 2rem;
-            background-color: var(--color-ivory);
+            background-color: transparent;
             position: fixed;
             top: 0;
             width: 100%;
             z-index: 100;
+            transition: background-color 0.3s;
+        }
+
+        /* Cuando cambiamos de pestaña le damos un fondo sutil si es necesario */
+        .header-navigation.scrolled {
+            background-color: rgba(251, 250, 247, 0.95);
             border-bottom: 1px solid rgba(179, 165, 148, 0.15);
         }
 
@@ -56,6 +63,7 @@
             text-decoration: none;
             font-weight: 500;
             letter-spacing: 1px;
+            cursor: pointer;
         }
 
         .mini-logo span {
@@ -138,8 +146,9 @@
             transform: translateY(0);
         }
 
-        .fullscreen-menu.menu-active li:nth-child(1) .menu-item { transition-delay: 0.2s; }
-        .fullscreen-menu.menu-active li:nth-child(2) .menu-item { transition-delay: 0.3s; }
+        .fullscreen-menu.menu-active li:nth-child(1) .menu-item { transition-delay: 0.1s; }
+        .fullscreen-menu.menu-active li:nth-child(2) .menu-item { transition-delay: 0.2s; }
+        .fullscreen-menu.menu-active li:nth-child(3) .menu-item { transition-delay: 0.3s; }
 
         .menu-item:hover {
             color: var(--color-peach-blush);
@@ -147,24 +156,88 @@
             font-style: italic;
         }
 
-        /* --- CONTROL DE VISTAS PRINCIPALES --- */
-        .seccion-tienda {
+        /* --- SECCIONES / VISTAS DINÁMICAS --- */
+        .vista-pantalla {
             display: none;
-            margin-top: 6rem;
-            padding: 2rem;
-            animation: fadeInPage 0.6s ease;
+            animation: fadeInPage 0.8s cubic-bezier(0.25, 1, 0.5, 1);
         }
 
-        .seccion-tienda.activa {
+        .vista-pantalla.activa {
             display: block;
         }
 
         @keyframes fadeInPage {
-            from { opacity: 0; transform: translateY(20px); }
+            from { opacity: 0; transform: translateY(30px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* En el encabezado de las colecciones */
+        /* --- HOME PAGE VIBE --- */
+        .hero-home {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 2rem;
+            background-color: var(--color-ivory);
+        }
+
+        .hero-slogan {
+            font-family: 'Playfair Display', serif;
+            font-size: 4rem;
+            font-weight: 400;
+            line-height: 1.1;
+            max-width: 800px;
+            margin-bottom: 1rem;
+            letter-spacing: -1px;
+        }
+
+        .hero-slogan span {
+            font-style: italic;
+            color: var(--color-peach-blush);
+        }
+
+        .hero-sub {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 6px;
+            color: var(--color-taupe);
+        }
+
+        /* --- SECCIÓN RECOBRADA: THE FEEL --- */
+        .the-feel-block {
+            background-color: var(--color-chocolate);
+            color: var(--color-ivory);
+            padding: 7rem 2rem;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .the-feel-text {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.2rem;
+            font-weight: 400;
+            line-height: 1.5;
+            max-width: 850px;
+            font-style: italic;
+        }
+
+        .the-feel-text span {
+            color: var(--color-rosa-pastel);
+            font-style: normal;
+            font-weight: 500;
+        }
+
+        /* --- INTERFAZ DE TIENDA (SHOP ALL / COLECCIONES) --- */
+        .espacio-tienda {
+            margin-top: 7rem;
+            padding: 2rem;
+        }
+
         .banner-coleccion {
             text-align: center;
             margin-bottom: 4rem;
@@ -193,7 +266,7 @@
             color: var(--color-taupe);
         }
 
-        /* --- VITRINA DE PRENDAS (GRID) --- */
+        /* VITRINA GRID */
         .grid-prendas {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -209,7 +282,6 @@
             position: relative;
         }
 
-        /* Contenedor de la foto estética */
         .prenda-imagen-wrapper {
             background-color: #f2efe9;
             height: 400px;
@@ -223,7 +295,6 @@
             transition: all 0.4s ease;
         }
 
-        /* Un sticker delicado de "New In" o "Premium" */
         .prenda-badge {
             position: absolute;
             top: 15px;
@@ -239,10 +310,9 @@
             box-shadow: 0 2px 10px rgba(0,0,0,0.05);
         }
 
-        /* Icono simulador de prenda minimalista */
         .prenda-placeholder-icon {
             font-family: 'Playfair Display', serif;
-            font-size: 4rem;
+            font-size: 3.5rem;
             font-style: italic;
             color: rgba(54, 32, 23, 0.1);
             transition: transform 0.4s ease;
@@ -256,7 +326,6 @@
             box-shadow: 0 15px 30px rgba(54, 32, 23, 0.08);
         }
 
-        /* Detalles informativos de la ropa */
         .prenda-info {
             display: flex;
             flex-direction: column;
@@ -267,7 +336,6 @@
             font-family: 'Playfair Display', serif;
             font-size: 1.4rem;
             font-weight: 400;
-            text-decoration: none;
             color: var(--color-chocolate);
         }
 
@@ -277,7 +345,6 @@
             color: var(--color-chocolate);
         }
 
-        /* Selector de tallas minimalista */
         .prenda-tallas-box {
             display: flex;
             gap: 0.5rem;
@@ -305,7 +372,6 @@
             border-color: var(--color-chocolate);
         }
 
-        /* Botón de compra rápida */
         .btn-quick-add {
             margin-top: 1rem;
             background-color: var(--color-chocolate);
@@ -338,33 +404,48 @@
 </head>
 <body>
 
-    <!-- Encabezado Fijo -->
-    <header class="header-navigation">
-        <a href="#" class="mini-logo" onclick="irA('shop-all')">Umer<span>a</span></a>
+    <!-- Menú Superior Fijo -->
+    <header class="header-navigation" id="mainHeader">
+        <a class="mini-logo" onclick="irA('home')">Umer<span>a</span></a>
         <button class="btn-open-menu" onclick="toggleMenu()">
             <span></span>
             <span style="width: 18px; align-self: flex-end;"></span>
         </button>
     </header>
 
-    <!-- Menú Desplegable con Efecto Slide -->
+    <!-- Menú Desplegable con Slide de arriba a abajo -->
     <nav class="fullscreen-menu" id="navMenu">
         <button class="btn-close-menu" onclick="toggleMenu()">Cerrar ✕</button>
         <ul class="menu-links-list">
+            <li><a href="#" class="menu-item" onclick="irA('home')">Inicio</a></li>
             <li><a href="#" class="menu-item" onclick="irA('shop-all')">Shop All</a></li>
             <li><a href="#" class="menu-item" onclick="irA('colecciones')">Colecciones</a></li>
         </ul>
     </nav>
 
-    <!-- PESTAÑA 1: SHOP ALL (Todo el catálogo solicitado) -->
-    <main id="vista-shop-all" class="seccion-tienda activa">
+    <!-- PESTAÑA 1: HOME PAGE (Limpio, con Eslogan y "The Feel") -->
+    <div id="vista-home" class="vista-pantalla activa">
+        <section class="hero-home">
+            <h1 class="hero-slogan">Movimiento consciente, <span>hecho para fluir.</span></h1>
+            <p class="hero-sub">Umera Studio</p>
+        </section>
+
+        <!-- Bloque Reincorporado: The Feel -->
+        <section class="the-feel-block">
+            <p class="the-feel-text">
+                "Texturas que se sienten como una <span>segunda piel</span>. Diseñado para resistir cada estiramiento, pensado para acompañar tu respiración."
+            </p>
+        </section>
+    </div>
+
+    <!-- PESTAÑA 2: SHOP ALL (Oculto al inicio) -->
+    <div id="vista-shop-all" class="vista-pantalla espacio-tienda">
         <div class="banner-coleccion">
             <p class="tagline">Catálogo Completo</p>
             <h2>Explorá <span>Umera</span></h2>
         </div>
 
         <div class="grid-prendas">
-            <!-- Licras Largas -->
             <div class="prenda-card">
                 <div class="prenda-imagen-wrapper">
                     <span class="prenda-badge">Essential</span>
@@ -382,7 +463,6 @@
                 </div>
             </div>
 
-            <!-- Blusas -->
             <div class="prenda-card">
                 <div class="prenda-imagen-wrapper">
                     <span class="prenda-badge">Premium Silk</span>
@@ -399,34 +479,17 @@
                     <button class="btn-quick-add">Agregar al carrito</button>
                 </div>
             </div>
-
-            <!-- Licras Cortas -->
-            <div class="prenda-card">
-                <div class="prenda-imagen-wrapper">
-                    <div class="prenda-placeholder-icon">Licra Corta</div>
-                </div>
-                <div class="prenda-info">
-                    <h3 class="prenda-nombre">Biker Short Seamless</h3>
-                    <span class="prenda-precio">₡15.000</span>
-                    <div class="prenda-tallas-box">
-                        <div class="talla-item">S</div>
-                        <div class="talla-item">M</div>
-                    </div>
-                    <button class="btn-quick-add">Agregar al carrito</button>
-                </div>
-            </div>
         </div>
-    </main>
+    </div>
 
-    <!-- PESTAÑA 2: COLECCIONES ("The Divine Feminine") -->
-    <main id="vista-colecciones" class="seccion-tienda">
+    <!-- PESTAÑA 3: COLECCIONES (Oculto al inicio) -->
+    <div id="vista-colecciones" class="vista-pantalla espacio-tienda">
         <div class="banner-coleccion">
             <p class="tagline">Nueva Colección Especial</p>
             <h2>The Divine <span>Feminine</span></h2>
         </div>
 
         <div class="grid-prendas">
-            <!-- Suéteres -->
             <div class="prenda-card">
                 <div class="prenda-imagen-wrapper">
                     <span class="prenda-badge">Edición Limitada</span>
@@ -444,40 +507,6 @@
                 </div>
             </div>
 
-            <!-- Licras Largas de la Colección -->
-            <div class="prenda-card">
-                <div class="prenda-imagen-wrapper">
-                    <div class="prenda-placeholder-icon">Licra Larga</div>
-                </div>
-                <div class="prenda-info">
-                    <h3 class="prenda-nombre">Licra Divine Ribbed High-Waist</h3>
-                    <span class="prenda-precio">₡15.000</span>
-                    <div class="prenda-tallas-box">
-                        <div class="talla-item">S</div>
-                        <div class="talla-item">M</div>
-                        <div class="talla-item">L</div>
-                    </div>
-                    <button class="btn-quick-add">Agregar al carrito</button>
-                </div>
-            </div>
-
-            <!-- Blusas de la Colección -->
-            <div class="prenda-card">
-                <div class="prenda-imagen-wrapper">
-                    <div class="prenda-placeholder-icon">Blusa</div>
-                </div>
-                <div class="prenda-info">
-                    <h3 class="prenda-nombre">Blusa Aura Open-Back</h3>
-                    <span class="prenda-precio">₡15.000</span>
-                    <div class="prenda-tallas-box">
-                        <div class="talla-item">S</div>
-                        <div class="talla-item">M</div>
-                    </div>
-                    <button class="btn-quick-add">Agregar al carrito</button>
-                </div>
-            </div>
-
-            <!-- Licras Cortas de la Colección -->
             <div class="prenda-card">
                 <div class="prenda-imagen-wrapper">
                     <div class="prenda-placeholder-icon">Licra Corta</div>
@@ -494,36 +523,42 @@
                 </div>
             </div>
         </div>
-    </main>
+    </div>
 
     <footer>
         <p>&copy; 2026 UMERA STUDIO. Hecho para fluir.</p>
     </footer>
 
     <script>
-        // Abrir y cerrar el menú deslizable
         function toggleMenu() {
             const menu = document.getElementById('navMenu');
             menu.classList.toggle('menu-active');
         }
 
-        // Sistema dinámico de cambio de pestañas
         function irA(pantalla) {
-            // Ocultar todas las secciones primero
+            // Desactivar todas las vistas
+            document.getElementById('vista-home').classList.remove('activa');
             document.getElementById('vista-shop-all').classList.remove('activa');
             document.getElementById('vista-colecciones').classList.remove('activa');
 
-            // Mostrar solo la seleccionada
-            if(pantalla === 'shop-all') {
+            const header = document.getElementById('mainHeader');
+
+            // Activar la seleccionada e ir controlando el estilo de la barra superior
+            if(pantalla === 'home') {
+                document.getElementById('vista-home').classList.add('activa');
+                header.classList.remove('scrolled'); // Transparente en Home
+            } else if(pantalla === 'shop-all') {
                 document.getElementById('vista-shop-all').classList.add('activa');
+                header.classList.add('scrolled'); // Con fondo sólido al ver productos
             } else if(pantalla === 'colecciones') {
                 document.getElementById('vista-colecciones').classList.add('activa');
+                header.classList.add('scrolled');
             }
 
-            // Cerrar automáticamente el menú con el slide hacia arriba
+            // Cerrar menú con el slide elegante hacia arriba
             toggleMenu();
 
-            // Desplazar la pantalla arriba de forma limpia e instantánea
+            // Resetea el scroll de la página arriba de forma limpia
             window.scrollTo({ top: 0, behavior: 'instant' });
         }
     </script>
