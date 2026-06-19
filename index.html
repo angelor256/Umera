@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Umera - Menú Minimalista</title>
+    <title>Umera — The Divine Feminine</title>
     
-    <!-- Fuentes elegantes de Google Fonts -->
+    <!-- Fuentes de Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;1,400&family=Plus+Jakarta+Sans:wght@300;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;700&display=swap" rel="stylesheet">
 
     <style>
         /* Paleta de colores oficial de Umera */
@@ -29,25 +29,29 @@
         body {
             background-color: var(--color-ivory);
             font-family: 'Plus Jakarta Sans', sans-serif;
+            color: var(--color-chocolate);
             min-height: 100vh;
+            display: flex;
+            flex-direction: column;
         }
 
-        /* --- BARRA DE NAVEGACIÓN SUPERIOR (HEADER) --- */
+        /* --- HEADER NAVIGATION --- */
         .header-navigation {
             display: flex;
             justify-content: space-between;
             align-items: center;
             padding: 1.5rem 2rem;
-            background-color: transparent;
+            background-color: var(--color-ivory);
             position: fixed;
             top: 0;
             width: 100%;
             z-index: 100;
+            border-bottom: 1px solid rgba(179, 165, 148, 0.15);
         }
 
         .mini-logo {
             font-family: 'Playfair Display', serif;
-            font-size: 1.5rem;
+            font-size: 1.6rem;
             color: var(--color-chocolate);
             text-decoration: none;
             font-weight: 500;
@@ -59,7 +63,6 @@
             color: var(--color-peach-blush);
         }
 
-        /* Botón de abrir menú (Hamburguesa Minimalista) */
         .btn-open-menu {
             background: none;
             border: none;
@@ -72,16 +75,15 @@
 
         .btn-open-menu span {
             display: block;
-            width: 28px;
+            width: 26px;
             height: 2px;
             background-color: var(--color-chocolate);
-            transition: all 0.3s ease;
         }
 
-        /* --- MENÚ DESPLEGABLE CON SLIDE DESDE ARRIBA --- */
+        /* --- MENÚ DESPLEGABLE (SLIDE DOWN) --- */
         .fullscreen-menu {
             position: fixed;
-            top: -100%; /* Totalmente oculto arriba de la pantalla */
+            top: -100%;
             left: 0;
             width: 100%;
             height: 100vh;
@@ -91,38 +93,27 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            
-            /* Aquí ocurre la magia del Slide de arriba para abajo */
             transition: top 0.6s cubic-bezier(0.85, 0, 0.15, 1);
         }
 
-        /* Estado activo: se desliza a su posición final */
         .fullscreen-menu.menu-active {
             top: 0;
         }
 
-        /* Botón cerrar dentro del menú */
         .btn-close-menu {
             position: absolute;
             top: 1.8rem;
             right: 2rem;
             background: none;
             border: none;
-            font-size: 1.5rem;
+            font-size: 1.3rem;
             color: var(--color-chocolate);
             cursor: pointer;
-            font-family: 'Plus Jakarta Sans', sans-serif;
             font-weight: 300;
             letter-spacing: 2px;
             text-transform: uppercase;
-            transition: color 0.3s;
         }
 
-        .btn-close-menu:hover {
-            color: var(--color-peach-blush);
-        }
-
-        /* Enlaces del Menú Principal */
         .menu-links-list {
             list-style: none;
             text-align: center;
@@ -131,140 +122,409 @@
             gap: 1.8rem;
         }
 
-        .menu-links-list li {
-            overflow: hidden; /* Oculta el texto mientras se genera la animación interna */
-        }
-
         .menu-item {
             font-family: 'Playfair Display', serif;
-            font-size: 3.5rem;
-            font-weight: 400;
+            font-size: 3.2rem;
             color: var(--color-chocolate);
             text-decoration: none;
             display: block;
-            position: relative;
             transition: all 0.4s ease;
             opacity: 0;
-            transform: translateY(-40px); /* Los enlaces caen sutilmente desde arriba */
+            transform: translateY(-40px);
         }
 
-        /* Animación para que los enlaces caigan en cascada cuando el menú se abre */
         .fullscreen-menu.menu-active .menu-item {
             opacity: 1;
             transform: translateY(0);
         }
 
-        /* Retrasos calculados para que los enlaces caigan uno tras otro (efecto cascada) */
-        .fullscreen-menu.menu-active li:nth-child(1) .menu-item { transition-delay: 0.3s; }
-        .fullscreen-menu.menu-active li:nth-child(2) .menu-item { transition-delay: 0.4s; }
-        .fullscreen-menu.menu-active li:nth-child(3) .menu-item { transition-delay: 0.5s; }
-        .fullscreen-menu.menu-active li:nth-child(4) .menu-item { transition-delay: 0.6s; }
+        .fullscreen-menu.menu-active li:nth-child(1) .menu-item { transition-delay: 0.2s; }
+        .fullscreen-menu.menu-active li:nth-child(2) .menu-item { transition-delay: 0.3s; }
 
-        /* Efecto Hover elegante y asimétrico en las opciones */
         .menu-item:hover {
             color: var(--color-peach-blush);
             transform: scale(1.05);
             font-style: italic;
         }
 
-        /* --- DETALLE ESTÉTICO DEL MENÚ (FOOTER INTERNO) --- */
-        .menu-footer {
-            position: absolute;
-            bottom: 3rem;
+        /* --- CONTROL DE VISTAS PRINCIPALES --- */
+        .seccion-tienda {
+            display: none;
+            margin-top: 6rem;
+            padding: 2rem;
+            animation: fadeInPage 0.6s ease;
+        }
+
+        .seccion-tienda.activa {
+            display: block;
+        }
+
+        @keyframes fadeInPage {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* En el encabezado de las colecciones */
+        .banner-coleccion {
             text-align: center;
-            opacity: 0;
-            transition: opacity 0.5s ease;
-            transition-delay: 0.7s;
+            margin-bottom: 4rem;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
         }
 
-        .fullscreen-menu.menu-active .menu-footer {
-            opacity: 1;
+        .banner-coleccion h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.5rem;
+            font-weight: 400;
+            letter-spacing: -1px;
+            margin-bottom: 0.5rem;
         }
 
-        .menu-footer p {
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            letter-spacing: 4px;
-            color: var(--color-taupe);
-            margin-bottom: 0.8rem;
-        }
-
-        .menu-socials {
-            display: flex;
-            gap: 1.5rem;
-            justify-content: center;
-        }
-
-        .menu-socials a {
-            font-size: 0.85rem;
-            color: var(--color-chocolate);
-            text-decoration: none;
-            font-weight: 500;
-            transition: color 0.3s;
-        }
-
-        .menu-socials a:hover {
+        .banner-coleccion h2 span {
+            font-style: italic;
             color: var(--color-peach-blush);
         }
 
-        /* Simulación de un contenido de fondo para notar el efecto */
-        .placeholder-content {
+        .banner-coleccion .tagline {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 5px;
+            color: var(--color-taupe);
+        }
+
+        /* --- VITRINA DE PRENDAS (GRID) --- */
+        .grid-prendas {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 3rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .prenda-card {
+            background: transparent;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        /* Contenedor de la foto estética */
+        .prenda-imagen-wrapper {
+            background-color: #f2efe9;
+            height: 400px;
+            border-radius: 4px;
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
-            color: var(--color-taupe);
-            font-size: 0.9rem;
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 1.2rem;
+            transition: all 0.4s ease;
+        }
+
+        /* Un sticker delicado de "New In" o "Premium" */
+        .prenda-badge {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            font-size: 0.65rem;
+            font-weight: 700;
+            text-transform: uppercase;
             letter-spacing: 2px;
+            background-color: var(--color-ivory);
+            padding: 0.4rem 0.8rem;
+            border-radius: 50px;
+            color: var(--color-chocolate);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        /* Icono simulador de prenda minimalista */
+        .prenda-placeholder-icon {
+            font-family: 'Playfair Display', serif;
+            font-size: 4rem;
+            font-style: italic;
+            color: rgba(54, 32, 23, 0.1);
+            transition: transform 0.4s ease;
+        }
+
+        .prenda-card:hover .prenda-placeholder-icon {
+            transform: scale(1.1) rotate(-3deg);
+        }
+
+        .prenda-card:hover .prenda-imagen-wrapper {
+            box-shadow: 0 15px 30px rgba(54, 32, 23, 0.08);
+        }
+
+        /* Detalles informativos de la ropa */
+        .prenda-info {
+            display: flex;
+            flex-direction: column;
+            gap: 0.4rem;
+        }
+
+        .prenda-nombre {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.4rem;
+            font-weight: 400;
+            text-decoration: none;
+            color: var(--color-chocolate);
+        }
+
+        .prenda-precio {
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: var(--color-chocolate);
+        }
+
+        /* Selector de tallas minimalista */
+        .prenda-tallas-box {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 0.3rem;
+        }
+
+        .talla-item {
+            font-size: 0.7rem;
+            font-weight: 700;
+            width: 26px;
+            height: 26px;
+            border: 1px solid var(--color-taupe);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            color: var(--color-chocolate);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .talla-item:hover {
+            background-color: var(--color-chocolate);
+            color: var(--color-ivory);
+            border-color: var(--color-chocolate);
+        }
+
+        /* Botón de compra rápida */
+        .btn-quick-add {
+            margin-top: 1rem;
+            background-color: var(--color-chocolate);
+            color: var(--color-ivory);
+            border: none;
+            padding: 0.8rem;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+
+        .btn-quick-add:hover {
+            background-color: var(--color-peach-blush);
+        }
+
+        footer {
+            margin-top: auto;
+            text-align: center;
+            padding: 3rem;
+            font-size: 0.75rem;
+            letter-spacing: 3px;
+            color: var(--color-taupe);
             text-transform: uppercase;
         }
     </style>
 </head>
 <body>
 
-    <!-- Encabezado de la Página -->
+    <!-- Encabezado Fijo -->
     <header class="header-navigation">
-        <a href="#" class="mini-logo">Umer<span>a</span></a>
+        <a href="#" class="mini-logo" onclick="irA('shop-all')">Umer<span>a</span></a>
         <button class="btn-open-menu" onclick="toggleMenu()">
             <span></span>
-            <span></span>
+            <span style="width: 18px; align-self: flex-end;"></span>
         </button>
     </header>
 
-    <!-- Menú Desplegable (Slide de arriba a abajo) -->
+    <!-- Menú Desplegable con Efecto Slide -->
     <nav class="fullscreen-menu" id="navMenu">
-        <!-- Botón cerrar -->
         <button class="btn-close-menu" onclick="toggleMenu()">Cerrar ✕</button>
-
-        <!-- Lista de opciones premium -->
         <ul class="menu-links-list">
-            <li><a href="#" class="menu-item">Shop All</a></li>
-            <li><a href="#" class="menu-item">Colecciones</a></li>
-            <li><a href="#" class="menu-item">The Feel Blog</a></li>
-            <li><a href="#" class="menu-item">Nuestro Manifiesto</a></li>
+            <li><a href="#" class="menu-item" onclick="irA('shop-all')">Shop All</a></li>
+            <li><a href="#" class="menu-item" onclick="irA('colecciones')">Colecciones</a></li>
         </ul>
-
-        <!-- Footer del menú con redes -->
-        <div class="menu-footer">
-            <p>Conecta con Umera</p>
-            <div class="menu-socials">
-                <a href="#" target="_blank">Instagram</a>
-                <a href="#" target="_blank">Pinterest</a>
-                <a href="#" target="_blank">WhatsApp</a>
-            </div>
-        </div>
     </nav>
 
-    <!-- Espacio temporal para ver el fondo detrás del menú -->
-    <div class="placeholder-content">
-        <p>Espacio principal de la tienda (Umera)</p>
-    </div>
+    <!-- PESTAÑA 1: SHOP ALL (Todo el catálogo solicitado) -->
+    <main id="vista-shop-all" class="seccion-tienda activa">
+        <div class="banner-coleccion">
+            <p class="tagline">Catálogo Completo</p>
+            <h2>Explorá <span>Umera</span></h2>
+        </div>
+
+        <div class="grid-prendas">
+            <!-- Licras Largas -->
+            <div class="prenda-card">
+                <div class="prenda-imagen-wrapper">
+                    <span class="prenda-badge">Essential</span>
+                    <div class="prenda-placeholder-icon">Licra Larga</div>
+                </div>
+                <div class="prenda-info">
+                    <h3 class="prenda-nombre">Licra Larga Soft-Sculpt</h3>
+                    <span class="prenda-precio">₡15.000</span>
+                    <div class="prenda-tallas-box">
+                        <div class="talla-item">S</div>
+                        <div class="talla-item">M</div>
+                        <div class="talla-item">L</div>
+                    </div>
+                    <button class="btn-quick-add">Agregar al carrito</button>
+                </div>
+            </div>
+
+            <!-- Blusas -->
+            <div class="prenda-card">
+                <div class="prenda-imagen-wrapper">
+                    <span class="prenda-badge">Premium Silk</span>
+                    <div class="prenda-placeholder-icon">Blusa</div>
+                </div>
+                <div class="prenda-info">
+                    <h3 class="prenda-nombre">Blusa Flow Crop Top</h3>
+                    <span class="prenda-precio">₡15.000</span>
+                    <div class="prenda-tallas-box">
+                        <div class="talla-item">S</div>
+                        <div class="talla-item">M</div>
+                        <div class="talla-item">L</div>
+                    </div>
+                    <button class="btn-quick-add">Agregar al carrito</button>
+                </div>
+            </div>
+
+            <!-- Licras Cortas -->
+            <div class="prenda-card">
+                <div class="prenda-imagen-wrapper">
+                    <div class="prenda-placeholder-icon">Licra Corta</div>
+                </div>
+                <div class="prenda-info">
+                    <h3 class="prenda-nombre">Biker Short Seamless</h3>
+                    <span class="prenda-precio">₡15.000</span>
+                    <div class="prenda-tallas-box">
+                        <div class="talla-item">S</div>
+                        <div class="talla-item">M</div>
+                    </div>
+                    <button class="btn-quick-add">Agregar al carrito</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- PESTAÑA 2: COLECCIONES ("The Divine Feminine") -->
+    <main id="vista-colecciones" class="seccion-tienda">
+        <div class="banner-coleccion">
+            <p class="tagline">Nueva Colección Especial</p>
+            <h2>The Divine <span>Feminine</span></h2>
+        </div>
+
+        <div class="grid-prendas">
+            <!-- Suéteres -->
+            <div class="prenda-card">
+                <div class="prenda-imagen-wrapper">
+                    <span class="prenda-badge">Edición Limitada</span>
+                    <div class="prenda-placeholder-icon">Suéter</div>
+                </div>
+                <div class="prenda-info">
+                    <h3 class="prenda-nombre">Suéter Cozy Divine Over-Sized</h3>
+                    <span class="prenda-precio">₡15.000</span>
+                    <div class="prenda-tallas-box">
+                        <div class="talla-item">S</div>
+                        <div class="talla-item">M</div>
+                        <div class="talla-item">L</div>
+                    </div>
+                    <button class="btn-quick-add">Agregar al carrito</button>
+                </div>
+            </div>
+
+            <!-- Licras Largas de la Colección -->
+            <div class="prenda-card">
+                <div class="prenda-imagen-wrapper">
+                    <div class="prenda-placeholder-icon">Licra Larga</div>
+                </div>
+                <div class="prenda-info">
+                    <h3 class="prenda-nombre">Licra Divine Ribbed High-Waist</h3>
+                    <span class="prenda-precio">₡15.000</span>
+                    <div class="prenda-tallas-box">
+                        <div class="talla-item">S</div>
+                        <div class="talla-item">M</div>
+                        <div class="talla-item">L</div>
+                    </div>
+                    <button class="btn-quick-add">Agregar al carrito</button>
+                </div>
+            </div>
+
+            <!-- Blusas de la Colección -->
+            <div class="prenda-card">
+                <div class="prenda-imagen-wrapper">
+                    <div class="prenda-placeholder-icon">Blusa</div>
+                </div>
+                <div class="prenda-info">
+                    <h3 class="prenda-nombre">Blusa Aura Open-Back</h3>
+                    <span class="prenda-precio">₡15.000</span>
+                    <div class="prenda-tallas-box">
+                        <div class="talla-item">S</div>
+                        <div class="talla-item">M</div>
+                    </div>
+                    <button class="btn-quick-add">Agregar al carrito</button>
+                </div>
+            </div>
+
+            <!-- Licras Cortas de la Colección -->
+            <div class="prenda-card">
+                <div class="prenda-imagen-wrapper">
+                    <div class="prenda-placeholder-icon">Licra Corta</div>
+                </div>
+                <div class="prenda-info">
+                    <h3 class="prenda-nombre">Divine Biker Short</h3>
+                    <span class="prenda-precio">₡15.000</span>
+                    <div class="prenda-tallas-box">
+                        <div class="talla-item">S</div>
+                        <div class="talla-item">M</div>
+                        <div class="talla-item">L</div>
+                    </div>
+                    <button class="btn-quick-add">Agregar al carrito</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 UMERA STUDIO. Hecho para fluir.</p>
+    </footer>
 
     <script>
+        // Abrir y cerrar el menú deslizable
         function toggleMenu() {
             const menu = document.getElementById('navMenu');
-            // Intercambia la clase para activar o desactivar el slide
             menu.classList.toggle('menu-active');
+        }
+
+        // Sistema dinámico de cambio de pestañas
+        function irA(pantalla) {
+            // Ocultar todas las secciones primero
+            document.getElementById('vista-shop-all').classList.remove('activa');
+            document.getElementById('vista-colecciones').classList.remove('activa');
+
+            // Mostrar solo la seleccionada
+            if(pantalla === 'shop-all') {
+                document.getElementById('vista-shop-all').classList.add('activa');
+            } else if(pantalla === 'colecciones') {
+                document.getElementById('vista-colecciones').classList.add('activa');
+            }
+
+            // Cerrar automáticamente el menú con el slide hacia arriba
+            toggleMenu();
+
+            // Desplazar la pantalla arriba de forma limpia e instantánea
+            window.scrollTo({ top: 0, behavior: 'instant' });
         }
     </script>
 
