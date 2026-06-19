@@ -3,14 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Umera Logo - Pilates & Move</title>
+    <title>Umera - Menú Minimalista</title>
     
+    <!-- Fuentes elegantes de Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;1,400&family=Plus+Jakarta+Sans:wght@500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;1,400&family=Plus+Jakarta+Sans:wght@300;500;700&display=swap" rel="stylesheet">
 
     <style>
-        /* Paleta de colores seleccionada */
+        /* Paleta de colores oficial de Umera */
         :root {
             --color-ivory: #fbfaf7;
             --color-taupe: #b3a594;
@@ -27,134 +28,245 @@
 
         body {
             background-color: var(--color-ivory);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
             font-family: 'Plus Jakarta Sans', sans-serif;
+            min-height: 100vh;
         }
 
-        /* Contenedor del Logo */
-        .brand-logo-container {
+        /* --- BARRA DE NAVEGACIÓN SUPERIOR (HEADER) --- */
+        .header-navigation {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 2rem;
+            background-color: transparent;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 100;
+        }
+
+        .mini-logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            color: var(--color-chocolate);
+            text-decoration: none;
+            font-weight: 500;
+            letter-spacing: 1px;
+        }
+
+        .mini-logo span {
+            font-style: italic;
+            color: var(--color-peach-blush);
+        }
+
+        /* Botón de abrir menú (Hamburguesa Minimalista) */
+        .btn-open-menu {
+            background: none;
+            border: none;
+            cursor: pointer;
             display: flex;
             flex-direction: column;
-            align-items: center;
-            gap: 1.2rem;
-            padding: 3rem;
-            background: var(--color-ivory);
+            gap: 6px;
+            padding: 0.5rem;
         }
 
-        /* --- Isotipo Abstracto ("Indirecto") --- */
-        .abstract-icon {
-            position: relative;
-            width: 120px;
-            height: 120px;
+        .btn-open-menu span {
+            display: block;
+            width: 28px;
+            height: 2px;
+            background-color: var(--color-chocolate);
+            transition: all 0.3s ease;
+        }
+
+        /* --- MENÚ DESPLEGABLE CON SLIDE DESDE ARRIBA --- */
+        .fullscreen-menu {
+            position: fixed;
+            top: -100%; /* Totalmente oculto arriba de la pantalla */
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background-color: var(--color-ivory);
+            z-index: 1000;
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
+            
+            /* Aquí ocurre la magia del Slide de arriba para abajo */
+            transition: top 0.6s cubic-bezier(0.85, 0, 0.15, 1);
         }
 
-        /* Forma de fondo - Rosa Suave */
-        .shape-back {
+        /* Estado activo: se desliza a su posición final */
+        .fullscreen-menu.menu-active {
+            top: 0;
+        }
+
+        /* Botón cerrar dentro del menú */
+        .btn-close-menu {
             position: absolute;
-            width: 85px;
-            height: 90px;
-            background-color: var(--color-rosa-pastel);
-            border-radius: 60% 40% 70% 30% / 50% 60% 40% 50%;
-            transform: rotate(-15deg);
-            opacity: 0.85;
-            animation: floatBack 7s ease-in-out infinite alternate;
+            top: 1.8rem;
+            right: 2rem;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--color-chocolate);
+            cursor: pointer;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-weight: 300;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            transition: color 0.3s;
         }
 
-        /* Forma de frente - Peach Blush */
-        .shape-front {
-            position: absolute;
-            width: 75px;
-            height: 80px;
-            background-color: var(--color-peach-blush);
-            border-radius: 40% 60% 35% 65% / 60% 40% 60% 40%;
-            transform: rotate(20deg) translate(12px, 8px);
-            mix-blend-mode: multiply; /* Intersección de color inteligente */
-            animation: floatFront 7s ease-in-out infinite alternate;
+        .btn-close-menu:hover {
+            color: var(--color-peach-blush);
         }
 
-        /* Punto de equilibrio minimalista */
-        .shape-core {
-            position: absolute;
-            width: 12px;
-            height: 12px;
-            background-color: var(--color-chocolate);
-            border-radius: 50%;
-            transform: translate(-8px, -4px);
-            box-shadow: 0 0 0 6px var(--color-ivory);
-            z-index: 10;
-        }
-
-        /* --- Tipografía Umera --- */
-        .brand-text {
+        /* Enlaces del Menú Principal */
+        .menu-links-list {
+            list-style: none;
             text-align: center;
             display: flex;
             flex-direction: column;
-            gap: 0.2rem;
+            gap: 1.8rem;
         }
 
-        /* Nombre de la marca (Serif, elegante, Chocolate) */
-        .brand-title {
+        .menu-links-list li {
+            overflow: hidden; /* Oculta el texto mientras se genera la animación interna */
+        }
+
+        .menu-item {
             font-family: 'Playfair Display', serif;
-            font-size: 2.6rem;
-            font-weight: 500;
-            color: var(--color-chocolate);
-            letter-spacing: 1px;
-            line-height: 1;
-            text-transform: capitalize;
-        }
-
-        /* La última letra en cursiva sutil para darle un toque único de diseño */
-        .brand-title span {
-            font-style: italic;
+            font-size: 3.5rem;
             font-weight: 400;
             color: var(--color-chocolate);
-            margin-left: -2px;
+            text-decoration: none;
+            display: block;
+            position: relative;
+            transition: all 0.4s ease;
+            opacity: 0;
+            transform: translateY(-40px); /* Los enlaces caen sutilmente desde arriba */
         }
 
-        /* Eslogan secundario (Palo Seco, limpio, espaciado) */
-        .brand-tagline {
-            font-size: 0.7rem;
-            font-weight: 700;
+        /* Animación para que los enlaces caigan en cascada cuando el menú se abre */
+        .fullscreen-menu.menu-active .menu-item {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Retrasos calculados para que los enlaces caigan uno tras otro (efecto cascada) */
+        .fullscreen-menu.menu-active li:nth-child(1) .menu-item { transition-delay: 0.3s; }
+        .fullscreen-menu.menu-active li:nth-child(2) .menu-item { transition-delay: 0.4s; }
+        .fullscreen-menu.menu-active li:nth-child(3) .menu-item { transition-delay: 0.5s; }
+        .fullscreen-menu.menu-active li:nth-child(4) .menu-item { transition-delay: 0.6s; }
+
+        /* Efecto Hover elegante y asimétrico en las opciones */
+        .menu-item:hover {
+            color: var(--color-peach-blush);
+            transform: scale(1.05);
+            font-style: italic;
+        }
+
+        /* --- DETALLE ESTÉTICO DEL MENÚ (FOOTER INTERNO) --- */
+        .menu-footer {
+            position: absolute;
+            bottom: 3rem;
+            text-align: center;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            transition-delay: 0.7s;
+        }
+
+        .fullscreen-menu.menu-active .menu-footer {
+            opacity: 1;
+        }
+
+        .menu-footer p {
+            font-size: 0.75rem;
             text-transform: uppercase;
+            letter-spacing: 4px;
             color: var(--color-taupe);
-            letter-spacing: 5px;
-            margin-top: 0.4rem;
+            margin-bottom: 0.8rem;
         }
 
-        /* Animaciones fluidas que simulan movimiento/respiración */
-        @keyframes floatBack {
-            0% { border-radius: 60% 40% 70% 30% / 50% 60% 40% 50%; transform: rotate(-15deg) translateY(0px); }
-            100% { border-radius: 45% 55% 50% 50% / 60% 45% 55% 40%; transform: rotate(-8deg) translateY(-3px); }
+        .menu-socials {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
         }
 
-        @keyframes floatFront {
-            0% { border-radius: 40% 60% 35% 65% / 60% 40% 60% 40%; transform: rotate(20deg) translate(12px, 8px); }
-            100% { border-radius: 55% 45% 60% 40% / 40% 55% 45% 55%; transform: rotate(23deg) translate(10px, 5px); }
+        .menu-socials a {
+            font-size: 0.85rem;
+            color: var(--color-chocolate);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .menu-socials a:hover {
+            color: var(--color-peach-blush);
+        }
+
+        /* Simulación de un contenido de fondo para notar el efecto */
+        .placeholder-content {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            color: var(--color-taupe);
+            font-size: 0.9rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
         }
     </style>
 </head>
 <body>
 
-    <div class="brand-logo-container">
-        
-        <div class="abstract-icon">
-            <div class="shape-back"></div>
-            <div class="shape-front"></div>
-            <div class="shape-core"></div>
-        </div>
+    <!-- Encabezado de la Página -->
+    <header class="header-navigation">
+        <a href="#" class="mini-logo">Umer<span>a</span></a>
+        <button class="btn-open-menu" onclick="toggleMenu()">
+            <span></span>
+            <span></span>
+        </button>
+    </header>
 
-        <div class="brand-text">
-            <h1 class="brand-title">Umer<span>a</span></h1>
-            <p class="brand-tagline">pilates & move</p>
-        </div>
+    <!-- Menú Desplegable (Slide de arriba a abajo) -->
+    <nav class="fullscreen-menu" id="navMenu">
+        <!-- Botón cerrar -->
+        <button class="btn-close-menu" onclick="toggleMenu()">Cerrar ✕</button>
 
+        <!-- Lista de opciones premium -->
+        <ul class="menu-links-list">
+            <li><a href="#" class="menu-item">Shop All</a></li>
+            <li><a href="#" class="menu-item">Colecciones</a></li>
+            <li><a href="#" class="menu-item">The Feel Blog</a></li>
+            <li><a href="#" class="menu-item">Nuestro Manifiesto</a></li>
+        </ul>
+
+        <!-- Footer del menú con redes -->
+        <div class="menu-footer">
+            <p>Conecta con Umera</p>
+            <div class="menu-socials">
+                <a href="#" target="_blank">Instagram</a>
+                <a href="#" target="_blank">Pinterest</a>
+                <a href="#" target="_blank">WhatsApp</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Espacio temporal para ver el fondo detrás del menú -->
+    <div class="placeholder-content">
+        <p>Espacio principal de la tienda (Umera)</p>
     </div>
+
+    <script>
+        function toggleMenu() {
+            const menu = document.getElementById('navMenu');
+            // Intercambia la clase para activar o desactivar el slide
+            menu.classList.toggle('menu-active');
+        }
+    </script>
 
 </body>
 </html>
